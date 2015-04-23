@@ -12,11 +12,8 @@ class Month
   def to_s
     output = ""
     if !valid_args?(@month, @year)
-      output << "Date not in acceptable format/range"
-      return output.rstrip
+      return "Date not in acceptable format/range"
     end
-
-    
 
   end
 

@@ -281,13 +281,17 @@ EOS
 
   def test_before_min_date
     output = `./cal.rb 01 1700`
-    expected = "Date not in acceptable format/range"
+    expected = <<EOS
+Date not in acceptable format/range
+EOS
     assert_equal expected, output
   end
 
   def test_after_max_date
     output = `./cal.rb 01 3001`
-    expected = "Date not in acceptable format/range"
+    expected = <<EOS
+Date not in acceptable format/range
+EOS
     assert_equal expected, output
   end
 
