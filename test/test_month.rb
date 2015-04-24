@@ -17,7 +17,7 @@ class TestMonth < Minitest::Test
 
   def test_name_for_march
     m = Month.new(03, 2015)
-    assert_equal m.name, "     March"
+    assert_equal m.name, "March"
   end
 
   def test_day_count_for_march
