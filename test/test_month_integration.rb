@@ -213,25 +213,10 @@ EOS
     assert_equal expected, output
   end
 
-  def test_leap_year_divisible_by_100
-    output = `./cal.rb 02 3000`
-    expected = <<EOS
-   February 3000
-Su Mo Tu We Th Fr Sa
-                   1
- 2  3  4  5  6  7  8
- 9 10 11 12 13 14 15
-16 17 18 19 20 21 22
-23 24 25 26 27 28
-
-EOS
-    assert_equal expected, output
-  end
-
   def test_leap_year_divisible_by_400
-    output = `./cal.rb 02 2000`
+    output = `./cal.rb 02 2400`
     expected = <<EOS
-   February 2000
+   February 2400
 Su Mo Tu We Th Fr Sa
        1  2  3  4  5
  6  7  8  9 10 11 12
