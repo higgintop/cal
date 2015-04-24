@@ -1,4 +1,5 @@
 require_relative 'Day'
+require_relative 'Year'
 
 class Month
 
@@ -20,7 +21,7 @@ class Month
     # special case for Feb in leap years
     if @month == 2
       # is a leap year?
-      if leap_year?
+      if Year.new(@year).leap_year?
         return 29
       else
         return 28
@@ -112,21 +113,4 @@ class Month
       days = {0 => 'Sa', 1 => 'Su', 2 => 'Mo', 3 => 'Tu', 4 => 'We', 5 => 'Th', 6 => 'Fr'}
       return days[index]
     end
-
-    def leap_year?
-      leap = false
-      if (@year % 4 == 0)
-        leap = true
-      end
-
-      if (@year % 100 == 0)
-        leap = false
-      end
-
-      if (@year % 400 == 0)
-        leap = true
-      end
-      return leap
-    end
-
 end
