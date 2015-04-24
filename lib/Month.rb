@@ -10,18 +10,10 @@ class Month
   end
 
 
-
-
-
-
   def name
     month_names = {1 => '    January', 2 => '   February', 3 => '     March', 4 => '     April', 5 => '      May', 6 => '     June', 7 => '     July', 8 => '    August', 9 => '   September', 10 => '    October', 11 => '   November', 12 => '   December'}
     return month_names[@month]
   end
-
-
-
-
 
 
   def day_count
@@ -38,14 +30,6 @@ class Month
     return month_day_counts[@month]
   end
 
-
-
-
-
-
-  def start_day_of_week
-    puts "CALLED START DAY OF WEEK METHOD"
-  end
 
   def to_s
     output = ""
