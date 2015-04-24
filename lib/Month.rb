@@ -1,4 +1,4 @@
-require_relative 'Year'
+require_relative 'Day'
 
 class Month
 
@@ -11,7 +11,7 @@ class Month
 
 
   def name
-    month_names = {1 => '    January', 2 => '   February', 3 => '     March', 4 => '     April', 5 => '      May', 6 => '     June', 7 => '     July', 8 => '    August', 9 => '   September', 10 => '    October', 11 => '   November', 12 => '   December'}
+    month_names = {1 => 'January', 2 => 'February', 3 => 'March', 4 => 'April', 5 => 'May', 6 => 'June', 7 => 'July', 8 => 'August', 9 => 'September', 10 => 'October', 11 => 'November', 12 => 'December'}
     return month_names[@month]
   end
 
@@ -32,13 +32,15 @@ class Month
 
 
   def to_s
+    cal_width = 20
     output = ""
     if !valid_args?
       return "Date not in acceptable format/range"
     end
 
     # print month name and year
-    output << "#{name} #{@year}\n"
+    output << "#{name} #{@year}".center(cal_width).rstrip!
+    output << "\n"
 
     # print days of week
     output << "Su Mo Tu We Th Fr Sa\n"
@@ -46,7 +48,7 @@ class Month
     # print the numbers in calendar
     day_count.times do |i|
       if (i == 0)
-        start_day_of_month = zellers(i+1)
+        start_day_of_month = Day.new(@month, (i+1), @year).day_of_week
         # figure out how many leading spaces we need
         if (start_day_of_month == 1) # sunday
           output << " " #one
@@ -64,20 +66,20 @@ class Month
           output << "                   "
         end
         output << "#{i+1} "
-        if day_of_week_conversion(zellers(i+1)) == 'Sa'
+        if day_of_week_conversion(Day.new(@month, (i+1), @year).day_of_week) == 'Sa'
             output.rstrip!
             output << "\n"
         end
       else
         unless (i+1) >= 10
           output << " #{i+1} "
-          if day_of_week_conversion(zellers(i+1)) == 'Sa'
+          if day_of_week_conversion(Day.new(@month, (i+1), @year).day_of_week) == 'Sa'
             output.rstrip!
             output << "\n"
           end
         else
           output << "#{i+1} "
-          if day_of_week_conversion(zellers(i+1)) == 'Sa'
+          if day_of_week_conversion(Day.new(@month, (i+1), @year).day_of_week) == 'Sa'
             output.rstrip!
             output << "\n"
           end
@@ -104,29 +106,6 @@ class Month
       end
 
       return true
-    end
-
-    def zellers(day_of_month)
-      # day of month
-      if (@month == 1)
-        month_converted = 13
-        year_converted = @year-1
-      elsif (@month == 2)
-        month_converted = 14
-        year_converted = @year-1
-      else
-        month_converted = @month
-        year_converted = @year
-      end
-
-      q = day_of_month
-      floor_1 = ((13 * (month_converted + 1))/5)
-      k = (year_converted) % 100
-      j = year_converted.to_s[0,2].to_i
-      floor_2 = (k/4)
-      floor_3 =(j/4)
-
-      return (q + floor_1 + k + floor_2 + floor_3 + (5*j)) % 7
     end
 
     def day_of_week_conversion(index)
