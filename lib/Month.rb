@@ -33,6 +33,7 @@ class Month
 
 
   def to_s
+    day = Day.new(2,2,1987)
     cal_width = 20
     output = ""
     if !valid_args?
@@ -67,20 +68,20 @@ class Month
           output << "                   "
         end
         output << "#{i+1} "
-        if day_of_week_conversion(Day.new(@month, (i+1), @year).day_of_week) == 'Sa'
+        if day.day_of_week_conversion(Day.new(@month, (i+1), @year).day_of_week) == 'Sa'
             output.rstrip!
             output << "\n"
         end
       else
         unless (i+1) >= 10
           output << " #{i+1} "
-          if day_of_week_conversion(Day.new(@month, (i+1), @year).day_of_week) == 'Sa'
+          if day.day_of_week_conversion(Day.new(@month, (i+1), @year).day_of_week) == 'Sa'
             output.rstrip!
             output << "\n"
           end
         else
           output << "#{i+1} "
-          if day_of_week_conversion(Day.new(@month, (i+1), @year).day_of_week) == 'Sa'
+          if day.day_of_week_conversion(Day.new(@month, (i+1), @year).day_of_week) == 'Sa'
             output.rstrip!
             output << "\n"
           end
@@ -107,10 +108,5 @@ class Month
       end
 
       return true
-    end
-
-    def day_of_week_conversion(index)
-      days = {0 => 'Sa', 1 => 'Su', 2 => 'Mo', 3 => 'Tu', 4 => 'We', 5 => 'Th', 6 => 'Fr'}
-      return days[index]
     end
 end

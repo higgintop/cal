@@ -9,3 +9,6 @@ userInputYear = ARGV[1]
 
 month = Month.new(userInputMonth, userInputYear)
 puts month.to_s
+
+year = Year.new(userInputYear)
+puts year.to_s
