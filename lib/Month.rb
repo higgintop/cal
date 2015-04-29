@@ -33,7 +33,6 @@ class Month
 
 
   def to_s
-    day = Day.new(2,2,1987)
     cal_width = 20
     output = ""
     if !valid_args?
@@ -62,20 +61,20 @@ class Month
         leading_spaces = " " * extra_spaces
         output << leading_spaces
         output << "#{i+1} "
-        if day.day_of_week_conversion(Day.new(@month, (i+1), @year).day_of_week) == 'Sa'
+        if Day.day_of_week_conversion(Day.new(@month, (i+1), @year).day_of_week) == 'Sa'
             output.rstrip!
             output << "\n"
         end
       else
-        unless (i+1) >= 10
+        unless (i+1) >= 10 
           output << " #{i+1} "
-          if day.day_of_week_conversion(Day.new(@month, (i+1), @year).day_of_week) == 'Sa'
+          if Day.day_of_week_conversion(Day.new(@month, (i+1), @year).day_of_week) == 'Sa'
             output.rstrip!
             output << "\n"
           end
         else
           output << "#{i+1} "
-          if day.day_of_week_conversion(Day.new(@month, (i+1), @year).day_of_week) == 'Sa'
+          if Day.day_of_week_conversion(Day.new(@month, (i+1), @year).day_of_week) == 'Sa'
             output.rstrip!
             output << "\n"
           end
