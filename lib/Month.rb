@@ -52,17 +52,15 @@ class Month
       if (i == 0)
         start_day_of_month = Day.new(@month, (i+1), @year).day_of_week
 
-        # leading spaces
-        extra_spaces = ((start_day_of_month-1) * 2) + start_day_of_month
-        leading_space = " "
-
-
-        # figure out how many leading spaces we need
+        # calculate number of leading spaces we need
         if (start_day_of_month == 0) # saturday special case
-          output << leading_space * 19
+          extra_spaces = cal_width - 1
         else
-          output << leading_space * extra_spaces
+          extra_spaces = ((start_day_of_month-1) * 2) + start_day_of_month
         end
+
+        leading_spaces = " " * extra_spaces
+        output << leading_spaces
         output << "#{i+1} "
         if day.day_of_week_conversion(Day.new(@month, (i+1), @year).day_of_week) == 'Sa'
             output.rstrip!
