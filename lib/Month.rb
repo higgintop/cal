@@ -51,21 +51,17 @@ class Month
     day_count.times do |i|
       if (i == 0)
         start_day_of_month = Day.new(@month, (i+1), @year).day_of_week
+
+        # leading spaces
+        extra_spaces = ((start_day_of_month-1) * 2) + start_day_of_month
+        leading_space = " "
+
+
         # figure out how many leading spaces we need
-        if (start_day_of_month == 1) # sunday
-          output << " " #one
-        elsif (start_day_of_month == 2) # monday
-          output << "    "
-        elsif (start_day_of_month == 3) # tuesday
-          output << "       "
-        elsif (start_day_of_month == 4) # wednesday
-          output << "          "
-        elsif (start_day_of_month == 5) # thursday
-          output << "             "
-        elsif (start_day_of_month == 6) # friday
-          output << "                "
-        elsif (start_day_of_month == 0) # saturday
-          output << "                   "
+        if (start_day_of_month == 0) # saturday special case
+          output << leading_space * 19
+        else
+          output << leading_space * extra_spaces
         end
         output << "#{i+1} "
         if day.day_of_week_conversion(Day.new(@month, (i+1), @year).day_of_week) == 'Sa'
