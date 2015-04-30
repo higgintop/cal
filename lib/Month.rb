@@ -33,56 +33,37 @@ class Month
 
 
   def to_s
-    cal_width = 20
     output = ""
+
     if !valid_args?
       return "Date not in acceptable format/range"
     end
 
-    # print month name and year
-    output << "#{name} #{@year}".center(cal_width).rstrip!
-    output << "\n"
+    # Print headers for a month
+    output << month_header
+    output << days_of_week_header
 
-    # print days of week
-    output << "Su Mo Tu We Th Fr Sa\n"
+    # use zeller's eqn to find start day of week for a month
+    starting_day_of_week = Day.new(@month, 1, @year).day_of_week
 
-    # print the numbers in calendar
-    day_count.times do |i|
-      if (i == 0)
-        start_day_of_month = Day.new(@month, (i+1), @year).day_of_week
+    # put days into an array
+    days = (1..day_count).to_a
 
-        # calculate number of leading spaces we need
-        if (start_day_of_month == 0) # saturday special case
-          extra_spaces = cal_width - 1
-        else
-          extra_spaces = ((start_day_of_month-1) * 2) + start_day_of_month
-        end
-
-        leading_spaces = " " * extra_spaces
-        output << leading_spaces
-        output << "#{i+1} "
-        if Day.day_of_week_conversion(Day.new(@month, (i+1), @year).day_of_week) == 'Sa'
-            output.rstrip!
-            output << "\n"
-        end
-      else
-        unless (i+1) >= 10 
-          output << " #{i+1} "
-          if Day.day_of_week_conversion(Day.new(@month, (i+1), @year).day_of_week) == 'Sa'
-            output.rstrip!
-            output << "\n"
-          end
-        else
-          output << "#{i+1} "
-          if Day.day_of_week_conversion(Day.new(@month, (i+1), @year).day_of_week) == 'Sa'
-            output.rstrip!
-            output << "\n"
-          end
-        end
-      end
+    # add leading spaces to front of array
+    if (starting_day_of_week == 0) # saturday start day
+      (6).times {days.unshift("  ")}
+    else
+      (starting_day_of_week - 1).times {days.unshift("  ")}
     end
-    output = output.rstrip
-    output << "\n"
+
+    # split days array into 7 day week arrays
+    weeks = days.each_slice(7).to_a
+
+    weeks.each do |week_array|
+      week_array.map! {|day| day.to_s.rjust(2) }
+      output << week_array.join(" ").concat("\n")
+    end
+
     output << "\n"
     return output
   end
@@ -101,5 +82,14 @@ class Month
       end
 
       return true
+    end
+
+    def month_header
+      cal_width = 20
+      "#{name} #{@year}".center(cal_width).rstrip!.concat("\n")
+    end
+
+    def days_of_week_header
+      "Su Mo Tu We Th Fr Sa".concat("\n")
     end
 end
