@@ -3,6 +3,8 @@ require_relative 'Year'
 
 class Month
 
+  HEIGHT = 8
+
   attr_reader :month, :year
 
   def initialize (month, year)
@@ -64,7 +66,13 @@ class Month
       output << week_array.join(" ").concat("\n")
     end
 
-    output << "\n"
+    # chomp very last new line added
+    output = output.rstrip
+
+    #puts "The output has how many newlines? " + output.scan(/\n/).count.to_s
+    (HEIGHT - (output.scan(/\n/).count)).times do
+      output << "\n"
+    end
     return output
   end
 
